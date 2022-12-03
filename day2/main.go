@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 )
@@ -32,32 +33,34 @@ var outcomes = map[string]int8{
 }
 
 func main() {
-	PartOne()
-	PartTwo()
+	file, err := os.Open("input")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	fmt.Println(PartOne(file))
+	file.Seek(0, 0)
+	fmt.Println(PartTwo(file))
 }
 
 func RockPaperScissorResult(ourHand string, theirHand string) int {
-	result := theirHands[theirHand] - theirHands[ourHand]
+	result := ourHands[ourHand] - theirHands[theirHand]
 	if result == 0 {
 		return Draw
 	} else if result == -1 || result == 2 {
-		return Win
-	} else if result == 1 || result == -2 {
 		return Loose
+	} else if result == 1 || result == -2 {
+		return Win
 	}
 
 	return 0
 }
 
-func PartOne() {
-	file, err := os.Open("input")
-	if err != nil {
-		panic(err)
-	}
+func PartOne(file io.Reader) int {
+	scanner := bufio.NewScanner(file)
 
 	points := 0
-
-	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		hands := strings.Split(scanner.Text(), " ")
 		theirHand := hands[0]
@@ -67,7 +70,7 @@ func PartOne() {
 		points += RockPaperScissorResult(ourHand, theirHand)
 	}
 
-	fmt.Println(points)
+	return points
 }
 
 func RockPaperScissorHand(expectedOutcome string, theirHand string) int {
@@ -90,15 +93,10 @@ func RockPaperScissorHand(expectedOutcome string, theirHand string) int {
 	return 0
 }
 
-func PartTwo() {
-	file, err := os.Open("input")
-	if err != nil {
-		panic(err)
-	}
+func PartTwo(file io.Reader) int {
+	scanner := bufio.NewScanner(file)
 
 	points := 0
-
-	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		hands := strings.Split(scanner.Text(), " ")
 		theirHand := hands[0]
@@ -108,5 +106,5 @@ func PartTwo() {
 		points += RockPaperScissorHand(expectedOutcome, theirHand)
 	}
 
-	fmt.Println(points)
+	return points
 }
