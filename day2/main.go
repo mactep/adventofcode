@@ -70,6 +70,26 @@ func PartOne() {
 	fmt.Println(points)
 }
 
+func RockPaperScissorHand(expectedOutcome string, theirHand string) int {
+	if expectedOutcome == "Y" {
+		return int(theirHands[theirHand])
+	} else if expectedOutcome == "X" {
+		if theirHands[theirHand] == 1 {
+			return int(theirHands[theirHand]) + 2
+		} else {
+			return int(theirHands[theirHand]) - 1
+		}
+	} else if expectedOutcome == "Z" {
+		if theirHands[theirHand] == 3 {
+			return int(theirHands[theirHand]) - 2
+		} else {
+			return int(theirHands[theirHand]) + 1
+		}
+	}
+
+	return 0
+}
+
 func PartTwo() {
 	file, err := os.Open("input")
 	if err != nil {
@@ -85,32 +105,7 @@ func PartTwo() {
 		expectedOutcome := hands[1]
 
 		points += int(outcomes[expectedOutcome])
-
-		if expectedOutcome == "Y" {
-			points += int(theirHands[theirHand])
-		} else if expectedOutcome == "X" {
-			if theirHand == "A" {
-				ourHand := "Z"
-				points += int(ourHands[ourHand])
-			} else if theirHand == "B" {
-				ourHand := "X"
-				points += int(ourHands[ourHand])
-			} else if theirHand == "C" {
-				ourHand := "Y"
-				points += int(ourHands[ourHand])
-			}
-		} else if expectedOutcome == "Z" {
-			if theirHand == "A" {
-				ourHand := "Y"
-				points += int(ourHands[ourHand])
-			} else if theirHand == "B" {
-				ourHand := "Z"
-				points += int(ourHands[ourHand])
-			} else if theirHand == "C" {
-				ourHand := "X"
-				points += int(ourHands[ourHand])
-			}
-		}
+		points += RockPaperScissorHand(expectedOutcome, theirHand)
 	}
 
 	fmt.Println(points)
