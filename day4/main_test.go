@@ -21,8 +21,8 @@ func TestPartOne(t *testing.T) {
 	}{
 		{
 			name:  "Example 1",
-			input: bufio.NewScanner(strings.NewReader(``)),
-			want:  157,
+			input: bufio.NewScanner(strings.NewReader(example)),
+			want:  2,
 		},
 	}
 	for _, tt := range tests {
@@ -42,8 +42,8 @@ func TestPartTwo(t *testing.T) {
 	}{
 		{
 			name:  "Example 2",
-			input: bufio.NewScanner(strings.NewReader(``)),
-			want:  70,
+			input: bufio.NewScanner(strings.NewReader(example)),
+			want:  4,
 		},
 	}
 	for _, tt := range tests {
