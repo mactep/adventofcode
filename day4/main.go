@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io"
 	"os"
 )
 
@@ -13,15 +13,18 @@ func main() {
 	}
 	defer file.Close()
 
-	fmt.Println(PartOne(file))
+	scanner := bufio.NewScanner(file)
+
+	fmt.Println(PartOne(scanner))
 	file.Seek(0, 0)
-	fmt.Println(PartTwo(file))
+	scanner = bufio.NewScanner(file)
+	fmt.Println(PartTwo(scanner))
 }
 
-func PartOne(file io.Reader) int {
+func PartOne(scanner *bufio.Scanner) int {
 	return 0
 }
 
-func PartTwo(file io.Reader) int {
+func PartTwo(scanner *bufio.Scanner) int {
 	return 0
 }

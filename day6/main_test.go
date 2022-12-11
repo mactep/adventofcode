@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io"
+	"bufio"
 	"strings"
 	"testing"
 )
@@ -9,13 +9,13 @@ import (
 func TestPartOne(t *testing.T) {
 	tests := []struct {
 		name  string
-		input io.Reader
+		input *bufio.Scanner
 		want  int
 	}{
 		{
-			name:  "Example 1",
-			input: strings.NewReader(""),
-			want:  0,
+			name: "Example 1",
+			input: bufio.NewScanner(strings.NewReader(``)),
+			want: 157,
 		},
 	}
 	for _, tt := range tests {
@@ -30,13 +30,13 @@ func TestPartOne(t *testing.T) {
 func TestPartTwo(t *testing.T) {
 	tests := []struct {
 		name  string
-		input io.Reader
+		input *bufio.Scanner
 		want  int
 	}{
 		{
 			name:  "Example 2",
-			input: strings.NewReader(""),
-			want:  0,
+			input: bufio.NewScanner(strings.NewReader(``)),
+			want:  70,
 		},
 	}
 	for _, tt := range tests {
