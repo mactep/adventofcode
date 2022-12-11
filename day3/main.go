@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io"
 	"os"
+
+	"github.com/mactep/aoc2022/structures"
 )
 
 func main() {
@@ -13,15 +15,68 @@ func main() {
 	}
 	defer file.Close()
 
-	fmt.Println(PartOne(file))
+	scanner := bufio.NewScanner(file)
+
+	fmt.Println(PartOne(scanner))
 	file.Seek(0, 0)
-	fmt.Println(PartTwo(file))
+	scanner = bufio.NewScanner(file)
+	fmt.Println(PartTwo(scanner))
 }
 
-func PartOne(file io.Reader) int {
-	return 0
+func ItemPriority(item string) int {
+	if item[0] > 'a' {
+		return int(item[0]) - 'a' + 1
+	}
+	return int(item[0]) - 'A' + 26 + 1
 }
 
-func PartTwo(file io.Reader) int {
-	return 0
+func PartOne(scanner *bufio.Scanner) int {
+	prioritySum := 0
+
+	for scanner.Scan() {
+		firstHalfItems := structures.NewSet()
+		line := scanner.Text()
+		for i := 0; i < len(line)/2; i++ {
+			firstHalfItems.Add(string(line[i]))
+		}
+
+		secondHalfItems := structures.NewSet()
+		for i := (len(line) / 2); i < len(line); i++ {
+			secondHalfItems.Add(string(line[i]))
+		}
+
+		intersection := firstHalfItems.Intersection(secondHalfItems)
+		for value := range intersection {
+			prioritySum += ItemPriority(value)
+		}
+	}
+
+	return prioritySum
+}
+
+func PartTwo(scanner *bufio.Scanner) int {
+	prioritySum := 0
+
+	for true {
+		sets := make([]structures.Set, 3)
+		for i := 0; i < 3; i++ {
+			sets[i] = structures.NewSet()
+			if !scanner.Scan() {
+				return prioritySum
+			}
+
+			line := scanner.Text()
+			for item := range line {
+				sets[i].Add(string(line[item]))
+			}
+		}
+
+		intersection := sets[0].Intersection(sets[1])
+		intersection = intersection.Intersection(sets[2])
+		for value := range intersection {
+			prioritySum += ItemPriority(value)
+		}
+	}
+
+	return prioritySum
 }
