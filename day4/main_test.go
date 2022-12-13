@@ -6,12 +6,7 @@ import (
 	"testing"
 )
 
-const example = `2-4,6-8
-2-3,4-5
-5-7,7-9
-2-8,3-7
-6-6,4-6
-2-6,4-8`
+const example = ``
 
 func TestPartOne(t *testing.T) {
 	tests := []struct {
@@ -22,7 +17,7 @@ func TestPartOne(t *testing.T) {
 		{
 			name:  "Example 1",
 			input: bufio.NewScanner(strings.NewReader(example)),
-			want:  2,
+			want:  0,
 		},
 	}
 	for _, tt := range tests {
@@ -43,7 +38,7 @@ func TestPartTwo(t *testing.T) {
 		{
 			name:  "Example 2",
 			input: bufio.NewScanner(strings.NewReader(example)),
-			want:  4,
+			want:  0,
 		},
 	}
 	for _, tt := range tests {
