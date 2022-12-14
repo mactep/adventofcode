@@ -6,18 +6,26 @@ import (
 	"testing"
 )
 
-const example = ``
+const example = `    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2`
 
 func TestPartOne(t *testing.T) {
 	tests := []struct {
 		name  string
 		input *bufio.Scanner
-		want  int
+		want  string
 	}{
 		{
 			name:  "Example 1",
 			input: bufio.NewScanner(strings.NewReader(example)),
-			want:  0,
+			want:  "CMZ",
 		},
 	}
 	for _, tt := range tests {
@@ -33,12 +41,12 @@ func TestPartTwo(t *testing.T) {
 	tests := []struct {
 		name  string
 		input *bufio.Scanner
-		want  int
+		want  string
 	}{
 		{
 			name:  "Example 2",
 			input: bufio.NewScanner(strings.NewReader(example)),
-			want:  0,
+			want:  "MCD",
 		},
 	}
 	for _, tt := range tests {
